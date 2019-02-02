@@ -274,6 +274,7 @@ bashcomp_DATA = 2to3 \
 		_newgrp \
 		newlist \
 		newusers \
+		nft \
 		ngrep \
 		nmap \
 		_nmcli \

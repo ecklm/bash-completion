@@ -1,0 +1,28 @@
+# nft(8) completion                                       -*- shell-script -*-
+
+_nft()
+{
+    local cur prev words cword split
+    _init_completion || return
+
+    case $prev in
+        --debug)
+            COMPREPLY=( $( compgen -W "$( nft --help | grep '\--debug' | \
+                sed -e 's/.*(\(.*\))/\1/g' | tr -d ',' )" -- "$cur") )
+            return
+            ;;
+        --includepath|-I|--file|-f)
+            _filedir
+            return
+            ;;
+    esac
+
+    if [[ $cur == -* ]]; then
+        COMPREPLY=( $( compgen -W '$( _parse_help "$1" )' -- "$cur" ) )
+        [[ $COMPREPLY == *= ]] && compopt -o nospace
+    fi
+
+} &&
+complete -F _nft nft
+
+# ex: filetype=sh
