@@ -3,7 +3,7 @@
 _nft()
 {
     local cur prev words cword split
-    _init_completion || return
+    _init_completion -s || return
 
     case $prev in
         --debug)
@@ -16,6 +16,8 @@ _nft()
             return
             ;;
     esac
+
+    $split && return
 
     if [[ $cur == -* ]]; then
         COMPREPLY=( $( compgen -W '$( _parse_help "$1" )' -- "$cur" ) )
